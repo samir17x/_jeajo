@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#25283a">
+  <title>For Jeajo — A little surprise</title>
+  <style>
+    :root {
+      --navy: #25283a;
+      --navy-soft: #303449;
+      --cream: #f2eee7;
+      --sand: #d9cdbb;
+      --lavender: #c9c2d8;
+      --muted: #b8bac7;
+      --pink: #ffb7c5;
+      --line: rgba(242, 238, 231, .17);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* Floating Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .page {
+      width: min(880px, 100%);
+      margin: 0 auto;
+      padding: 24px 22px 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font: 11px Arial, sans-serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 10px 0 22px;
+    }
+
+    .topbar span:last-child {
+      color: var(--sand);
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 18px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(37, 40, 58, 0) 0%, rgba(48, 52, 73, 0.4) 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "✦";
+      position: absolute;
+      color: rgba(201, 194, 216, .6);
+      font-size: 24px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero::before {
+      top: 15%;
+      left: 10%;
+    }
+
+    .hero::after {
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .eyebrow,
+    .kicker {
+      color: var(--sand);
+      font: 11px Arial, sans-serif;
+      letter-spacing: .23em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 22px 0 12px;
+      font-size: clamp(48px, 10vw, 88px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: -.055em;
+      transition: transform 0.3s ease;
+    }
+
+    h1:hover {
+      transform: scale(1.03);
+    }
+
+    h1 em {
+      color: var(--lavender);
+      font-style: italic;
+    }
+
+    .heart-pop {
+      display: inline-block;
+      animation: heartBeat 1.5s infinite ease-in-out;
+    }
+
+    @keyframes heartBeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+    }
+
+    .tagline {
+      max-width: 440px;
+      color: #d6d3dc;
+      font: 14px/1.9 Arial, sans-serif;
+    }
+
+    .open-button {
+      margin-top: 28px;
+      border: 1px solid var(--sand);
+      border-radius: 30px;
+      background: transparent;
+      color: var(--cream);
+      padding: 16px 32px;
+      font: 11px Arial, sans-serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .open-button:hover,
+    .open-button:focus-visible {
+      background: var(--sand);
+      color: var(--navy);
+      outline: none;
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 6px 20px rgba(217, 205, 187, 0.4);
+    }
+
+    .hint {
+      color: var(--muted);
+      font: 11px Arial, sans-serif;
+      margin-top: 16px;
+    }
+
+    section {
+      padding: 68px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .card-style {
+      background: rgba(48, 52, 73, 0.4);
+      padding: 35px;
+      border-radius: 16px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(242, 238, 231, 0.08);
+      margin-top: 25px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 6vw, 46px);
+      font-weight: 400;
+      margin: 13px 0 25px;
+    }
+
+    p {
+      color: #e0dee5;
+      font: 15px/1.95 Arial, sans-serif;
+    }
+
+    .letter p {
+      margin: 0 0 19px;
+    }
+
+    .arabic {
+      direction: rtl;
+      text-align: right;
+      font-family: Arial, sans-serif;
+      line-height: 2.15;
+      font-size: 16px;
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+
+    .signature {
+      color: var(--sand);
+      font: italic 22px Georgia, serif;
+      margin-top: 28px;
+    }
+
+    .closing {
+      text-align: center;
+      padding: 40px 12px;
+    }
+
+    .closing h2 {
+      color: var(--lavender);
+    }
+
+    .closing p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .reveal {
+      animation: appear .9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(12deg);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: 18px 18px 40px;
+      }
+
+      .hero {
+        min-height: 72vh;
+      }
+
+      section {
+        padding: 40px 0;
+      }
+
+      .card-style {
+        padding: 20px;
+      }
+
+      .topbar {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="page">
+    <div class="topbar">
+      <span>A little birthday surprise 🎂</span>
+      <span>09 November</span>
+    </div>
+
+    <header class="hero">
+      <div class="eyebrow">A special page for</div>
+      <h1>JE AJO <em>OO</em> <span class="heart-pop">❤️</span></h1>
+      <p class="tagline">A little surprise made just for you.</p>
+      <button class="open-button" id="openSurprise" type="button">Open your surprise ✨</button>
+      <div class="hint">Made especially for you, Joudy.</div>
+    </header>
+
+    <div id="surprise" class="hidden">
+      <section class="letter reveal card-style" id="letter">
+        <div class="kicker">01 / Your birthday message 🎁</div>
+        <h2>Happy Birthday JEAJOOO 🎉</h2>
+
+        <p>You know JOUDY, I really wish I was with u right now, so we could do something great and funny on this special
+          day. I’ve never seen someone like u, and there’s no like you.</p>
+
+        <p>I wish I could see ur smile right now and share some silly moments and laughs with you, you are special,you
+          have this way of making everything better without even trying,never change, because u deserve all the
+          happiness in the world <span class="heart-pop">❤️</span></p>
+
+        <p>I hope u like this, I made it just for u, no cap. I really worked on it for 10 days.</p>
+
+        <p class="arabic">انشالله كل سنة تكوني بخير و صحتك بخير وتقوي اكثر وتحققي اللي بدك ياه و تاخدي يلي تتمنيه و
+          تطلبيه و تضلي مرتاحة البال محدا يدايقك ، يكون ايامك دايماً حلوة، وتضلي انتي واخواتك وامك بخير مع بعض. ❤️</p>
+
+        <p class="arabic">خلال تلت سنين ونص، انتي الوحيدة بقيتي معي طول وقت صح تعملي اشياء تعصبني ، اوتس اوكي حقي باخده
+          بالكف بس شوفك😭..ويس و كل عم يمر علينا وقت و ايام عم نقوى اكثر و عم نفهم بعضنا اكثر، وعم نبني احلام مع بعض، بدنا
+          نحققها ورح نحققها اكيد.</p>
+
+        <p class="arabic">احنا التنين صابرين من سنين ويمكن  نصبر اكثر. صبرنا هو متل امتحان النا والقوة يلي عم نستند عليها.
+          انشالله يجي هاليوم ونلتقي فيه و شوفك و اتعرف على اهلك عن قريب. رح يجي هاليوم اكيد .</p>
+
+        <p class="arabic">I don't what else to say now, but you know how much you mean to me.. </p>
+
+        <p>Happy birthday again.</p>
+
+        <p class="signature">Love u, JOUDY 🤍</p>
+      </section>
+
+      <section class="reveal card-style">
+        <div class="kicker">02 / Looking forward 🌍</div>
+        <div class="closing">
+          <h2>Sweet days and memories are waiting for us ✨</h2>
+          <p>Different places, same friendship.</p>
+          <p class="signature">Happy birthday, Joudy. 🤍</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const openButton = document.getElementById("openSurprise");
+    const surprise = document.getElementById("surprise");
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createConfetti() {
+      const colors = ["#c9c2d8", "#d9cdbb", "#ffb7c5", "#ffffff", "#f2eee7"];
+      for (let i = 0; i < 90; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 7 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: Math.random() * 2 - 1,
+          rotation: Math.random() * 360,
+          spin: Math.random() * 6 - 3
+        });
+      }
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotation += p.spin;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+
+        if (p.y > canvas.height) {
+          particles[index].y = -10;
+        }
+      });
+      requestAnimationFrame(animateConfetti);
+    }
+
+    openButton.addEventListener("click", () => {
+      surprise.classList.remove("hidden");
+      openButton.textContent = "Your surprise is open ✨";
+      openButton.disabled = true;
+
+      createConfetti();
+      animateConfetti();
+
+      surprise.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>
