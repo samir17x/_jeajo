@@ -50,7 +50,7 @@
       z-index: 999;
     }
 
-    /* حاوية الأشكال الهندسية الملونة (تظهر حصرياً في صفحات النصوص بعد ضغط "يلا هلق") */
+    /* حاوية الأشكال الهندسية الملونة (تظهر حصرياً في صفحات النصوص بعد ضغط زر الانتقال) */
     #decorContainer {
       position: fixed;
       top: 0;
@@ -270,7 +270,7 @@
 
   <canvas id="confettiCanvas"></canvas>
   
-  <!-- حاوية الأشكال الهندسية الملونة (تظهر فقط بعد الضغط على "يلا هلق") -->
+  <!-- حاوية الأشكال الهندسية الملونة -->
   <div id="decorContainer"></div>
 
   <main class="page">
@@ -288,7 +288,7 @@
       <div class="hint">Made especially for you, Joudy 🤍</div>
     </header>
 
-    <!-- الصفحة الثانية (صفحة الأغنية هادئة ونظيفة تماماً بدون أي أشياء تطير) -->
+    <!-- الصفحة الثانية (صفحة الأغنية) -->
     <header class="hero hidden" id="page2">
       <div class="eyebrow">First things first 🎵</div>
       <h1>Let's set the mood</h1>
@@ -297,10 +297,11 @@
       <button class="action-button" id="playMusicBtn" type="button" style="background: linear-gradient(135deg, #c084fc, #ff758c);">Play Music 🎶</button>
       <div class="hint" id="musicStatus">Tap to play music</div>
 
-      <button class="action-button" id="yallaBtn" type="button" style="margin-top: 25px; background: linear-gradient(135deg, #ff758c, #ff9a9e);">Okay now ✨</button>
+      <!-- زر "Okay now" مخفي في البداية ولا يظهر إلا بعد تشغيل الموسيقى -->
+      <button class="action-button hidden" id="yallaBtn" type="button" style="margin-top: 25px; background: linear-gradient(135deg, #ff758c, #ff9a9e);">Okay now ✨</button>
     </header>
 
-    <!-- الصفحة الثالثة (النص الإنجليزي الجديد - هنا تبدأ الأشكال الهندسية الملونة بالنزول) -->
+    <!-- الصفحة الثالثة (النص الإنجليزي) -->
     <div id="page3" class="hidden">
       <section class="reveal card-style">
         <div class="kicker">01 / Birthday Wishes 🎁</div>
@@ -320,7 +321,7 @@
       </section>
     </div>
 
-    <!-- الصفحة الرابعة (النص العربي الجديد - وتستمر الأشكال بالتساقط) -->
+    <!-- الصفحة الرابعة (النص العربي) -->
     <div id="page4" class="hidden">
       <section class="reveal card-style" style="margin-top: 25px;">
         <div class="kicker">02 / From the heart 🤍</div>
@@ -335,7 +336,7 @@
 
         <p class="arabic-text">تزكري دايما، انا موجود جمبك اي شي بدك تلاقيني حدك و بسمعلك، وانتي كمان موجودة دايما وتسمعيلي واقفين مع بعض على طول وهي صداقة حقيقة.</p>
 
-        <p class="signature">Love u,Twin 🤍</p>
+        <p class="signature">Love u, Twin 🤍</p>
       </section>
     </div>
 
@@ -418,7 +419,6 @@
       requestAnimationFrame(animateConfetti);
     }
 
-    // دالة لتوليد أشكال هندسية ملونة وتنزيلها حصرياً بعد ضغط "يلا هلق"
     function startTextFallingShapes() {
       if (decorInterval) clearInterval(decorInterval);
       decorContainer.innerHTML = "";
@@ -455,23 +455,30 @@
       }, 400);
     }
 
+    // 1. الانتقال لصفحة الأغنية
     openSurpriseBtn.addEventListener("click", () => {
       page1.classList.add("hidden");
       page2.classList.remove("hidden");
     });
 
-    // 2. زر تشغيل الصوت من الدقيقة 1:30 (90 ثانية)
+    // 2. زر تشغيل الصوت (يبدأ من الدقيقة 1:38 - أي 98.5 ثانية) وعندما يعمل تظهر زر "Okay now"
     playMusicBtn.addEventListener("click", () => {
       bgMusic.currentTime = 98.5;
       bgMusic.play().then(() => {
-        musicStatus.textContent = "Music is playing 🎶 (1:30)";
+        musicStatus.textContent = "Music is playing 🎶 (1:38)";
         playMusicBtn.textContent = "Playing ✨";
+        
+        // إظهار زر الانتقال فقط بعد اشتغال الموسيقى بنجاح
+        yallaBtn.classList.remove("hidden");
       }).catch(e => {
         console.log("Audio play blocked", e);
-        musicStatus.textContent = "Playing music... ✨";
+        musicStatus.textContent = "Tap again to play ✨";
+        // حتى لو حصل حظر مؤقت، نظهر الزر احتياطياً ليتمكن المستخدم من الانتقال
+        yallaBtn.classList.remove("hidden");
       });
     });
 
+    // 3. عند الضغط على "Okay now" -> الانتقال لصفحة النصوص وتشغيل الكونفيتي والأشكال الملونة
     yallaBtn.addEventListener("click", () => {
       page2.classList.add("hidden");
       page3.classList.remove("hidden");
