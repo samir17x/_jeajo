@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff0f3">
+  
+  <title>For Jeajo — Happy Birthday 🤍</title>
+
+  <!-- SEO & Search Keywords -->
+  <meta name="keywords" content="jeajo, jeajooo, samir jeajo joudy, Samir, Joudy, Happy Birthday Joudy, Birthday Surprise">
+  <meta name="description" content="A special birthday surprise page for Joudy 🤍">
+  <meta name="author" content="Samir">
+
+  <!-- Open Graph for Social Media Sharing -->
+  <meta property="og:title" content="For Jeajo — Happy Birthday 🤍">
+  <meta property="og:description" content="A bright and joyful birthday surprise made with all my heart for Joudy.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #fae1dd 50%, #f3c6df 100%);
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --text-main: #4a3b4c;
+      --text-muted: #8c7b8e;
+      --accent-pink: #ff758c;
+      --accent-purple: #c084fc;
+      --border-color: rgba(255, 183, 197, 0.4);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* حاوية الأشكال الهندسية الملونة (تظهر حصرياً في صفحات النصوص بعد ضغط "يلا هلق") */
+    #decorContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .falling-shape {
+      position: absolute;
+      top: -30px;
+      animation: fallDown 5s linear infinite;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    @keyframes fallDown {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.8; }
+      85% { opacity: 0.8; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    .page { 
+      width: min(800px, 100%); 
+      margin: 0 auto; 
+      padding: 20px 20px 80px; 
+      position: relative; 
+      z-index: 10; 
+    }
+    
+    .topbar {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      color: var(--text-muted); 
+      font-size: 11px;
+      letter-spacing: .25em; 
+      text-transform: uppercase; 
+      padding: 20px 0 30px;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    .hero {
+      min-height: 80vh; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center; 
+      text-align: center;
+      padding: 40px 20px; 
+      position: relative; 
+    }
+
+    .eyebrow {
+      color: var(--accent-pink); 
+      font-size: 12px;
+      letter-spacing: .3em; 
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 15px;
+      animation: bounceSlow 3s infinite ease-in-out;
+    }
+
+    @keyframes bounceSlow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h1 {
+      margin: 0 0 15px; 
+      font-size: clamp(48px, 10vw, 86px);
+      line-height: 1.1; 
+      font-weight: 800; 
+      letter-spacing: -.03em;
+      color: #382939;
+    }
+    h1 em { 
+      background: linear-gradient(135deg, #ff758c, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: normal; 
+    }
+
+    .heart-pop {
+      display: inline-block;
+      animation: heartBeat 1.2s infinite ease-in-out;
+      color: var(--accent-pink);
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    .tagline {
+      max-width: 380px; 
+      color: var(--text-muted);
+      font-size: 15px; 
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    .action-button {
+      margin-top: 25px; 
+      border: none; 
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff758c, #ff9a9e); 
+      color: white; 
+      padding: 16px 36px;
+      font-size: 12px; 
+      letter-spacing: .2em;
+      text-transform: uppercase; 
+      font-weight: 700;
+      cursor: pointer; 
+      transition: all .4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4);
+    }
+    .action-button:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(255, 117, 140, 0.6);
+    }
+
+    .hint { 
+      color: var(--text-muted); 
+      font-size: 12px; 
+      margin-top: 15px; 
+      font-weight: 600;
+    }
+    
+    .card-style {
+      background: var(--card-bg);
+      padding: 45px 35px;
+      border-radius: 28px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid white;
+      box-shadow: 0 20px 40px rgba(210, 150, 170, 0.15);
+      margin-top: 35px;
+      text-align: left;
+      position: relative;
+      z-index: 2;
+    }
+
+    .kicker {
+      color: var(--accent-pink);
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h2 { 
+      font-size: clamp(22px, 4vw, 32px); 
+      font-weight: 700; 
+      margin: 0 0 20px; 
+      color: #382939; 
+    }
+
+    .english-text {
+      color: #5a4a5d; 
+      font-size: 16px; 
+      line-height: 2.1; 
+      margin: 0 0 20px;
+      font-weight: 400;
+    }
+    
+    .arabic-text {
+      direction: rtl; 
+      text-align: right; 
+      line-height: 2.4; 
+      font-size: 17px;
+      color: #4a3b4c;
+      margin: 0 0 22px;
+      padding-right: 14px;
+      border-right: 3px solid var(--accent-pink);
+      font-weight: 500;
+    }
+    
+    .signature { 
+      color: var(--accent-pink); 
+      font-family: Georgia, serif;
+      font-style: italic; 
+      font-weight: bold;
+      font-size: 22px; 
+      margin-top: 30px; 
+    }
+    
+    .closing { text-align: center; padding: 10px 0; }
+    .closing h2 { color: #382939; margin-bottom: 15px; }
+    .closing p { color: var(--text-muted); font-size: 15px; font-weight: 500; }
+
+    .hidden { display: none !important; }
+    .reveal { animation: appear 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    
+    @keyframes appear { 
+      from { opacity: 0; transform: translateY(30px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 15px 12px 60px; }
+      .card-style { padding: 30px 20px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ملف الأغنية المحلي -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <canvas id="confettiCanvas"></canvas>
+  
+  <!-- حاوية الأشكال الهندسية الملونة (تظهر فقط بعد الضغط على "يلا هلق") -->
+  <div id="decorContainer"></div>
+
+  <main class="page">
+    <div class="topbar">
+      <span>✨ A little birthday surprise 🎂</span>
+      <span>09 November</span>
+    </div>
+
+    <!-- الصفحة الأولى -->
+    <header class="hero" id="page1">
+      <div class="eyebrow">A very special day for</div>
+      <h1>JE AJO <em>OO</em> <span class="heart-pop">❤️</span></h1>
+      <p class="tagline">A little surprise made just for you.</p>
+      <button class="action-button" id="openSurpriseBtn" type="button">Open your surprise ✨</button>
+      <div class="hint">Made especially for you, Joudy 🤍</div>
+    </header>
+
+    <!-- الصفحة الثانية (صفحة الأغنية هادئة ونظيفة تماماً بدون أي أشياء تطير) -->
+    <header class="hero hidden" id="page2">
+      <div class="eyebrow">First things first 🎵</div>
+      <h1>Let's set the mood</h1>
+      <p class="tagline">Bruno Mars — Count On Me ✨</p>
+      
+      <button class="action-button" id="playMusicBtn" type="button" style="background: linear-gradient(135deg, #c084fc, #ff758c);">Play Music 🎶</button>
+      <div class="hint" id="musicStatus">Tap to play music</div>
+
+      <button class="action-button" id="yallaBtn" type="button" style="margin-top: 25px; background: linear-gradient(135deg, #ff758c, #ff9a9e);">Okay now ✨</button>
+    </header>
+
+    <!-- الصفحة الثالثة (النص الإنجليزي الجديد - هنا تبدأ الأشكال الهندسية الملونة بالنزول) -->
+    <div id="page3" class="hidden">
+      <section class="reveal card-style">
+        <div class="kicker">01 / Birthday Wishes 🎁</div>
+        <h2>Happy Birthday, Joudy! 🎉</h2>
+
+        <p class="english-text">You know JOUDY, I really wish I was with u right now, so we could do something great and funny on this special day, and I could give u your gift and say happy birthday face to face.</p>
+
+        <p class="english-text">I wish I could see ur smile right now and share some silly moments and laughs with you. You have this way of making everything better without even trying.</p>
+
+        <p class="english-text">Really, I’ve never met someone quite like u. You’re truly one of kind. Never change, because u deserve all the happiness in the world <span class="heart-pop">❤️</span></p>
+
+        <p class="english-text">I hope u like this. I made it just for u, no cap, I really worked on it for 8 days.</p>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="action-button" id="arabicBtn" type="button">Ohh one more 🤍</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- الصفحة الرابعة (النص العربي الجديد - وتستمر الأشكال بالتساقط) -->
+    <div id="page4" class="hidden">
+      <section class="reveal card-style" style="margin-top: 25px;">
+        <div class="kicker">02 / From the heart 🤍</div>
+
+        <p class="arabic-text">انشالله كل سنة تكوني بخير و صحتك بخير، وتقوي اكثر وتحققي اللي بدك ياه، و تاخدي يلي تتمنيه و تطلبيه، وتضلي مرتاحة البال محدا يدايقك، ويكون ايامك دايماً حلوة، وتضلي انتي واخواتك وامك بخير مع بعض. ❤️</p>
+
+        <p class="arabic-text">خلال تلت سنين ونص، انتي الوحيدة بقيتي معي طول وقت. صح تعملي اشياء تعصبني و تسحبي عليي، اوتس اوكي حقي باخده بالكف بس شوفك😭..ويس، وكل عم يمر علينا وقت و ايام عم نقوى اكثر و عم نفهم بعضنا اكثر، وعم نبني احلام مع بعض، بدنا نحققها ورح نحققها اكيد.</p>
+
+        <p class="arabic-text">احنا التنين صابرين من سنين ويمكن نصبر اكثر. صبرنا هو متل امتحان النا والقوة يلي عم نستند عليها. انشالله يجي هاليوم ونلتقي فيه و شوفك و اتعرف على اهلك عن قريب. رح يجي هاليوم اكيد.</p>
+
+        <p class="arabic-text">انتي شخص منيح و تستاهلي كثير اشياء.</p>
+
+        <p class="arabic-text">تزكري دايما، انا موجود جمبك اي شي بدك تلاقيني حدك و بسمعلك، وانتي كمان موجودة دايما وتسمعيلي واقفين مع بعض على طول وهي صداقة حقيقة.</p>
+
+        <p class="signature">Love u,Twin 🤍</p>
+      </section>
+    </div>
+
+    <!-- قسم الخاتمة الثابتة -->
+    <div id="footerSection" class="hidden">
+      <section class="reveal card-style" style="margin-top: 25px;">
+        <div class="kicker">03 / Looking forward 🌍</div>
+        <div class="closing">
+          <h2>Sweet days and memories are waiting for us ✨</h2>
+          <p>Different places, same friendship.</p>
+          <p class="signature" style="margin-top: 20px; font-size: 18px;">Happy birthday, Joudy. 🤍</p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <script>
+    const openSurpriseBtn = document.getElementById("openSurpriseBtn");
+    const playMusicBtn = document.getElementById("playMusicBtn");
+    const yallaBtn = document.getElementById("yallaBtn");
+    const arabicBtn = document.getElementById("arabicBtn");
+    
+    const bgMusic = document.getElementById("bgMusic");
+    const musicStatus = document.getElementById("musicStatus");
+
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+    const page3 = document.getElementById("page3");
+    const page4 = document.getElementById("page4");
+    const footerSection = document.getElementById("footerSection");
+    const decorContainer = document.getElementById("decorContainer");
+
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let decorInterval = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createConfetti() {
+      const colors = ["#ff758c", "#ffb7c5", "#c084fc", "#ffd166", "#ffffff"];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 7 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: Math.random() * 2 - 1,
+          rotation: Math.random() * 360,
+          spin: Math.random() * 5 - 2.5
+        });
+      }
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotation += p.spin;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+
+        if (p.y > canvas.height) {
+          particles[index].y = -10;
+        }
+      });
+      requestAnimationFrame(animateConfetti);
+    }
+
+    // دالة لتوليد أشكال هندسية ملونة وتنزيلها حصرياً بعد ضغط "يلا هلق"
+    function startTextFallingShapes() {
+      if (decorInterval) clearInterval(decorInterval);
+      decorContainer.innerHTML = "";
+
+      const shapeColors = ["#ff758c", "#ffb7c5", "#c084fc", "#ffd166", "#a78bfa", "#f472b6"];
+
+      decorInterval = setInterval(() => {
+        const shape = document.createElement("div");
+        shape.className = "falling-shape";
+        
+        const shapeType = Math.floor(Math.random() * 3);
+        const size = Math.random() * 10 + 10;
+        
+        shape.style.width = size + "px";
+        shape.style.height = size + "px";
+        shape.style.backgroundColor = shapeColors[Math.floor(Math.random() * shapeColors.length)];
+        shape.style.left = Math.random() * 95 + "vw";
+        shape.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        
+        if (shapeType === 0) {
+          shape.style.borderRadius = "50%";
+        } else if (shapeType === 1) {
+          shape.style.borderRadius = "4px";
+        } else {
+          shape.style.transform = "rotate(45deg)";
+          shape.style.borderRadius = "2px";
+        }
+        
+        decorContainer.appendChild(shape);
+
+        setTimeout(() => {
+          shape.remove();
+        }, 7000);
+      }, 400);
+    }
+
+    // 1. الانتقال لصفحة الأغنية (خالية تماماً ونظيفة بدون أي عناصر طائرة)
+    openSurpriseBtn.addEventListener("click", () => {
+      page1.classList.add("hidden");
+      page2.classList.remove("hidden");
+    });
+
+    // 2. زر تشغيل الصوت من الدقيقة 1:30 (90 ثانية)
+    playMusicBtn.addEventListener("click", () => {
+      bgMusic.currentTime = 98.5;
+      bgMusic.play().then(() => {
+        musicStatus.textContent = "Music is playing 🎶 (1:30)";
+        playMusicBtn.textContent = "Playing ✨";
+      }).catch(e => {
+        console.log("Audio play blocked", e);
+        musicStatus.textContent = "Playing music... ✨";
+      });
+    });
+
+    // 3. عند الضغط على "يلا هلق" -> الانتقال لصفحة النصوص وتشغيل الكونفيتي والأشكال الملونة هنا فقط
+    yallaBtn.addEventListener("click", () => {
+      page2.classList.add("hidden");
+      page3.classList.remove("hidden");
+      footerSection.classList.remove("hidden");
+      
+      createConfetti();
+      animateConfetti();
+      startTextFallingShapes();
+      
+      page3.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    arabicBtn.addEventListener("click", () => {
+      page4.classList.remove("hidden");
+      page4.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>
